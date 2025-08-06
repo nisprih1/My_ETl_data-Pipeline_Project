@@ -1,0 +1,9 @@
+temp_chunks/ 
+*.zip 
+__pycache__/ 
+*.parquet 
+*.log 
+data/*.csv 
+*.parquet 
+*.zip 
+5M_data/
