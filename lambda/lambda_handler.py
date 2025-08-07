@@ -24,7 +24,7 @@ def lambda_handler(event, context):
 
     # 4. Convert to Parquet
     out_buffer = io.BytesIO()
-    df_cleaned.to_parquet(out_buffer, index=False)
+    df_cleaned.to_parquet(out_buffer, index=False, engine='pyarrow', timestamp_unit='ms')
 
     # 5. Upload to cleaned/ folder
     file_name = os.path.basename(raw_key).replace(".csv", ".parquet")
