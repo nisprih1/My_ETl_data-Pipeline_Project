@@ -25,11 +25,10 @@ Used AWS Glue Crawler to automatically detect schema and create Athena tables.
 Ensured proper partitioning, schema consistency, and SERDE settings.
 Resolved issues like empty Athena query results due to incorrect folder structure and data format.
 
-##  Common Errors Handled
-
-*  `AccessDenied` (resolved via IAM permission updates)
-*  `Runtime.ImportModuleError` (fixed by zipping correct folder structure)
-*  `OutOfMemory` (resolved by increasing Lambda memory size)
+* Common Errors Handled
+   `AccessDenied` (resolved via IAM permission updates)
+   `Runtime.ImportModuleError` (fixed by zipping correct folder structure)
+   `OutOfMemory` (resolved by increasing Lambda memory size)
   
 * Business-Level SQL Analytics via Athena:
    Delivered SQL-based analytics such as:
