@@ -34,9 +34,9 @@ for table_name, file_keys in table_groups.items():
 
     # Combine
     merged_df = pd.concat(dfs, ignore_index=True)
+    subfolder_path = f"{output_prefix}{table_name}_cleaned/"
+    output_key = f"{subfolder_path}{table_name}_cleaned.parquet"
 
-    # Upload back to S3
-    output_key = f"{output_prefix}{table_name}_cleaned.parquet"
     out_buffer = BytesIO()
     merged_df.to_parquet(out_buffer, index=False)
 
