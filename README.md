@@ -25,13 +25,19 @@ Used AWS Glue Crawler to automatically detect schema and create Athena tables.
 Ensured proper partitioning, schema consistency, and SERDE settings.
 Resolved issues like empty Athena query results due to incorrect folder structure and data format.
 
-*Business-Level SQL Analytics via Athena:
-Delivered SQL-based analytics such as:
+##  Common Errors Handled
+
+*  `AccessDenied` (resolved via IAM permission updates)
+*  `Runtime.ImportModuleError` (fixed by zipping correct folder structure)
+*  `OutOfMemory` (resolved by increasing Lambda memory size)
+  
+* Business-Level SQL Analytics via Athena:
+   Delivered SQL-based analytics such as:
 	Top users by order value
 	Most in-demand products
 	Delivery time KPIs and cancellation trends
 	
-Created Athena Views with cleaned timestamp columns using SQL functions like from_unixtime and timezone conversion (AT TIME ZONE 'Asia/Kolkata').
+ Created Athena Views with cleaned timestamp columns using SQL functions like from_unixtime and timezone conversion (AT TIME ZONE 'Asia/Kolkata').
 ---
 
 ##  Tech Stack
@@ -105,17 +111,9 @@ def clean_and_transform(df):
 
 ---
 
-##  Common Errors Handled
-
-*  `AccessDenied` (resolved via IAM permission updates)
-*  `Runtime.ImportModuleError` (fixed by zipping correct folder structure)
-*  `OutOfMemory` (resolved by increasing Lambda memory size)
-
----
-
 ##  Output
 
-* Cleaned `.parquet` files in S3: `s3://<bucket-name>/cleaned/`
+* Cleaned `.parquet` files in S3: `s3://<bucket-name>/final_cleaned/`
 * Real-time processing logs in AWS CloudWatch
 
 ---
