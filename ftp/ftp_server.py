@@ -6,7 +6,7 @@ from pyftpdlib.servers import FTPServer
 FTP_USER = "Harsh"
 FTP_PASS = "12345"
 FTP_PORT = 2121
-FTP_DIR = "data"  
+FTP_DIR = "5M_Data"  
 
 os.makedirs(FTP_DIR, exist_ok=True)
 

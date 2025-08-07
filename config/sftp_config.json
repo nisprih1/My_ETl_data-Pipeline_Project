@@ -3,8 +3,8 @@
   "port": 2121,
   "username": "Harsh",
   "password": "12345",
-  "remote_path": "/", 
-  "s3_bucket": "my-etl-pipeline-bucket",
+  "remote_path": ".", 
+  "s3_bucket": "my-etl-pipeline-5m",
   "s3_prefix": "raw",
   "chunk_size": 1000000
 }

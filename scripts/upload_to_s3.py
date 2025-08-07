@@ -57,7 +57,7 @@ def download_and_upload_all_csvs():
             chunk_num += 1
 
     ftp.quit()
-    print("\ All files  uploaded.")
+    print(" All files  uploaded.")
 
 if __name__ == "__main__":
     download_and_upload_all_csvs()
