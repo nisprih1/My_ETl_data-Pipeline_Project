@@ -2,19 +2,36 @@
 
 ##  Overview
 
-This project demonstrates a fully automated ETL (Extract, Transform, Load) pipeline that ingests large CSV datasets (50M+ rows) from a local FTP server, cleans and transforms the data using AWS Lambda, and stores the cleaned data back into S3 in Parquet format.
-
+Designed and implemented a scalable end-to-end ETL data pipeline to process and analyze large datasets (50M+ rows) from an on-premise FTP server to AWS S3, leveraging AWS native services for automation, transformation, and analytics.
 ---
 
-##  Features
+##Key Features & Responsibilities:
 
-*  Local **FTP server setup** with multiple CSV datasets
-*  **Chunked uploading** of large CSV files (1M+ rows per chunk) to Amazon S3
-*  **S3 Triggered Lambda** function for real-time processing
-*  Data cleaning using **pandas** (e.g., handling missing values, dropping rows, type casting)
-*  Final data stored in **Parquet format** in a separate S3 folder
-*  Error handling for common issues (AccessDenied, OutOfMemory, ModuleNotFound, etc.)
+*Data Source Automation:
+Set up FTP-based data ingestion from local server using Python and boto3.
+Uploaded raw CSVs (users, orders, products – multi-million rows) in chunks to Amazon S3 (raw/ folder) without manual intervention.
 
+*ETL Orchestration (Lambda + Pandas):
+Configured AWS Lambda to trigger automatically on new file uploads in the raw/ S3 prefix.
+Performed data cleaning, formatting, and transformation (e.g., timestamp correction, null handling, standardization) using Python (pandas, pyarrow).
+Converted cleaned data to efficient Parquet format, stored in cleaned/ S3 folder.
+
+*Data Merging & Organization:
+Grouped and merged chunked parquet files per entity (users, orders, products) using Python scripts.
+Stored final merged outputs to final_cleaned/ folder for downstream analytics.
+
+*Metadata Management & Querying:
+Used AWS Glue Crawler to automatically detect schema and create Athena tables.
+Ensured proper partitioning, schema consistency, and SERDE settings.
+Resolved issues like empty Athena query results due to incorrect folder structure and data format.
+
+*Business-Level SQL Analytics via Athena:
+Delivered SQL-based analytics such as:
+	Top users by order value
+	Most in-demand products
+	Delivery time KPIs and cancellation trends
+	
+Created Athena Views with cleaned timestamp columns using SQL functions like from_unixtime and timezone conversion (AT TIME ZONE 'Asia/Kolkata').
 ---
 
 ##  Tech Stack
@@ -25,24 +42,27 @@ This project demonstrates a fully automated ETL (Extract, Transform, Load) pipel
   * S3 (Storage)
   * Lambda (Serverless Computing)
   * IAM (Permissions)
-* **Python Libraries:** boto3, pandas, ftplib, io
+* **Python Libraries:** boto3, pandas, ftplib, io , PyArrow, Parquet
 * **Tools:** pyftpdlib (for local FTP server)
-
+* AWS Glue, AWS Athena 
+*FTP/SFTP
+*SQL
 ---
 
 ##  Project Structure
 
 ```
 My_ETl_data-Pipeline_Project/
-├── ftp/                    # Contains FTP server setup & raw CSVs
-├── config/                # JSON config file for credentials & paths
-├── scripts/
-│   └── upload_to_s3.py    # Uploads chunked CSV files to S3 from FTP
+├── ftp/                    					# Contains FTP server setup & raw CSVs
+├── config/                					# JSON config file for credentials & paths
 ├── lambda_function/
-│   ├── lambda_handler.py  # Entry point for AWS Lambda
+│   ├── lambda_handler.py  		# Entry point for AWS Lambda
 │   └── utils/
-│       └── clean_transform.py  # Logic to clean/transform data
-└── temp_chunks/           # Temporary local chunk files (auto-deleted)
+│       └── clean_transform.py	  # Logic to clean/transform data
+├── merged/
+│   └── merged_data.py   			 # merged chunked files to S3 from S3
+├── scripts/
+   └── upload_to_s3.py   			 # Uploads chunked CSV files to S3 from FTP
 ```
 
 ---
