@@ -21,10 +21,15 @@ def lambda_handler(event, context):
 
     # 3. Clean and transform
     df_cleaned = clean_and_transform(df)
+    
+    # Handle incorrect DOB format before saving
+    if 'dob' in df_cleaned.columns:
+    df_cleaned['dob'] = pd.to_datetime(df_cleaned['dob'], unit='ns', errors='coerce')
 
     # 4. Convert to Parquet
     out_buffer = io.BytesIO()
     df_cleaned.to_parquet(out_buffer, index=False, engine='pyarrow', timestamp_unit='ms')
+    
 
     # 5. Upload to cleaned/ folder
     file_name = os.path.basename(raw_key).replace(".csv", ".parquet")
