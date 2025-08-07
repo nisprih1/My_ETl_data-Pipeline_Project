@@ -5,7 +5,6 @@ import json
 from io import BytesIO
 from ftplib import FTP
 
-# --- Load config ---
 with open("config/sftp_config.json") as f:
     config = json.load(f)
 
@@ -40,7 +39,7 @@ def download_and_upload_all_csvs():
     print(f"Found {len(csv_files)} CSV files on FTP.")
 
     for file_name in csv_files:
-        print(f"\n⬇️ Processing: {file_name}")
+        print(f"\n Processing: {file_name}")
         bio = BytesIO()
         ftp.retrbinary(f"RETR {file_name}", bio.write)
         bio.seek(0)
